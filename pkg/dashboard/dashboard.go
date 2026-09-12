@@ -625,6 +625,51 @@ const dashboardHTML = `<!DOCTYPE html>
       flex-direction: column;
       gap: 8px;
     }
+    .header-endpoints {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .endpoint-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-family: 'Outfit', sans-serif;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+    .endpoint-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+    .endpoint-dot.cp {
+      background: var(--accent-purple);
+      box-shadow: 0 0 5px rgba(124, 58, 237, 0.4);
+    }
+    .endpoint-dot.router {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 5px rgba(2, 132, 199, 0.4);
+    }
+    .endpoint-name {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+    .endpoint-port {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .endpoint-divider {
+      color: #cbd5e1;
+      font-size: 0.75rem;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -633,11 +678,21 @@ const dashboardHTML = `<!DOCTYPE html>
       <div class="logo-badge">MINIATE</div>
       <div>
         <div class="title">Miniate Dashboard</div>
-        <div class="subtitle"><span class="live-pulse"></span>Connected to local control plane & router</div>
+        <div class="subtitle"><span class="live-pulse"></span>Connected to control plane</div>
       </div>
     </div>
-    <div>
-      <span style="font-size: 0.82rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">Control Plane :8080 &nbsp;|&nbsp; Router :8000</span>
+    <div class="header-endpoints">
+      <div class="endpoint-pill">
+        <span class="endpoint-dot cp"></span>
+        <span class="endpoint-name">Control Plane</span>
+        <span class="endpoint-port">:8080</span>
+      </div>
+      <span class="endpoint-divider">•</span>
+      <div class="endpoint-pill">
+        <span class="endpoint-dot router"></span>
+        <span class="endpoint-name">Router</span>
+        <span class="endpoint-port">:8000</span>
+      </div>
     </div>
   </header>
 
