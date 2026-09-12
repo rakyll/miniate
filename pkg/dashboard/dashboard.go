@@ -397,36 +397,81 @@ const dashboardHTML = `<!DOCTYPE html>
     }
     .workers-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
-      gap: 6px;
+      grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+      gap: 7px;
     }
     .worker-slot {
-      background: #f8fafc;
+      background: #ffffff;
       border: 1px solid var(--card-border);
-      border-radius: 5px;
-      padding: 5px 4px;
-      text-align: center;
-      transition: all 0.2s ease;
+      border-radius: 6px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 48px;
+      transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .worker-slot:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
     .worker-slot.assigned {
-      border-color: var(--accent-cyan);
-      background: rgba(2, 132, 199, 0.06);
-      box-shadow: 0 0 6px rgba(2, 132, 199, 0.1);
+      border-color: #bae6fd;
+      background: #f0f9ff;
+      box-shadow: 0 1px 3px rgba(2, 132, 199, 0.08);
     }
-    .worker-name { font-weight: 600; font-size: 0.76rem; color: var(--text-main); }
+    .worker-slot-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .worker-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 0.73rem;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
     .worker-badge {
-      display: inline-block;
-      font-size: 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.58rem;
       font-weight: 600;
       padding: 1px 4px;
       border-radius: 3px;
-      margin-top: 2px;
       text-transform: uppercase;
       line-height: 1.2;
     }
-    .worker-badge.free { background: rgba(5, 150, 105, 0.12); color: var(--accent-emerald); }
+    .worker-badge.free { background: rgba(5, 150, 105, 0.1); color: var(--accent-emerald); }
     .worker-badge.assigned { background: rgba(2, 132, 199, 0.12); color: var(--accent-cyan); }
-    .worker-actor { font-size: 0.66rem; color: var(--text-muted); margin-top: 2px; word-break: break-all; }
+    .worker-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .worker-dot.free { background: var(--accent-emerald); }
+    .worker-dot.assigned { background: var(--accent-cyan); }
+    .worker-actor {
+      font-size: 0.67rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .worker-actor.has-actor {
+      color: var(--accent-cyan);
+      font-weight: 500;
+    }
+    .worker-actor.idle {
+      color: #94a3b8;
+    }
 
     table {
       width: 100%;
@@ -707,9 +752,16 @@ const dashboardHTML = `<!DOCTYPE html>
         const div = document.createElement('div');
         div.className = 'worker-slot ' + (isAssigned ? 'assigned' : '');
         div.innerHTML =
-          '<div class="worker-name">' + w.name + '</div>' +
-          '<span class="worker-badge ' + (isAssigned ? 'assigned' : 'free') + '">' + w.status + '</span>' +
-          '<div class="worker-actor">' + (w.assigned_actor || '&mdash;') + '</div>';
+          '<div class="worker-slot-top">' +
+            '<span class="worker-name">' + w.name + '</span>' +
+            '<span class="worker-badge ' + (isAssigned ? 'assigned' : 'free') + '">' +
+              '<span class="worker-dot ' + (isAssigned ? 'assigned' : 'free') + '"></span>' +
+              (isAssigned ? 'busy' : 'free') +
+            '</span>' +
+          '</div>' +
+          '<div class="worker-actor ' + (isAssigned ? 'has-actor' : 'idle') + '" title="' + (w.assigned_actor || 'idle') + '">' +
+            (w.assigned_actor || 'idle') +
+          '</div>';
         container.appendChild(div);
       });
     }
