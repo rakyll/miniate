@@ -134,8 +134,24 @@ Navigate to **`http://localhost:8082/dashboard`** in your browser to view:
 | `miniate status` | Inspect cluster health, workers, and actor counts |
 | `miniate delete` | Delete local state and snapshots |
 | `miniate dashboard` | Print dashboard URL |
-| `miniate atespace create/list/delete` | Manage atespace boundaries |
-| `miniate template create/list/delete` | Manage actor templates (supports `-f template.yaml` or JSON) |
-| `miniate actor create/list/get/resume/suspend/pause/delete/logs` | Full actor lifecycle operations |
-| `miniate worker list/get/drain` | Inspect and drain physical worker slots |
-| `miniate tag create/list/get/delete` | Tag and manage actor snapshots |
+| `miniate atespace create` | Create an atespace boundary |
+| `miniate atespace list` | List existing atespaces |
+| `miniate atespace delete` | Delete an atespace |
+| `miniate template create` | Create an actor template (`-f template.yaml` or JSON) |
+| `miniate template list` | List actor templates |
+| `miniate template delete` | Delete an actor template |
+| `miniate actor create` | Create a stateful actor instance from a template |
+| `miniate actor list` | List actors across namespaces |
+| `miniate actor get` | Inspect actor status and worker assignments |
+| `miniate actor resume` | Resume a suspended actor onto a worker slot |
+| `miniate actor suspend` | Suspend a running actor and snapshot state |
+| `miniate actor pause` | Pause an actor without releasing worker slot |
+| `miniate actor delete` | Delete an actor |
+| `miniate actor logs` | Tail logs for an actor |
+| `miniate worker list` | List physical worker slots and status |
+| `miniate worker get` | Get detailed worker capacity and allocations |
+| `miniate worker drain` | Drain an active worker slot |
+| `miniate tag create` | Create a named tag for an actor snapshot |
+| `miniate tag list` | List snapshot tags |
+| `miniate tag get` | Inspect a specific tag |
+| `miniate tag delete` | Delete a tag |
