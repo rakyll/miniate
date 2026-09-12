@@ -2,21 +2,19 @@
 
 **Miniate** is a lightweight local development environment and CLI tool for **[Agent Substrate](https://github.com/agent-substrate/substrate)**, designed to provide the same effortless, zero-friction developer experience that `minikube` brings to Kubernetes.
 
-Miniate replicates Substrate's entire control plane API surface (`ateapipb.Control` and `ateapipb.WorkerService`), embeds a local worker execution and multiplexing pool, includes an intelligent HTTP traffic router (`atenet`) with automatic actor hibernation and resume, and serves a live developer web dashboard.
+Miniate replicates Substrate's entire control plane API surface (`ateapipb.Control` and `ateapipb.WorkerService`), embeds a local worker execution and multiplexing pool, includes a traffic router (`atenet`) with automatic actor hibernation and resume, and serves a live developer web dashboard.
 
----
 
-## Key Features
+## Features
 
-- **Substrate API Compatible**: Replicates the official gRPC Control and Worker APIs.
-- **Local Worker Runtime**: Multiplexes stateful actors across local worker slots without external dependencies.
-- **Smart Traffic Router**: Ingress router with sub-millisecond auto-resume for suspended actors.
+- **Substrate API Compatible**: Replicates the Agent Substrate Control Plane APIs and the Router.
+- **Local Worker Runtime**: Multiplexes stateful actors across local workers.
+- **Traffic Router**: Ingress router with sub-millisecond auto-resume for suspended actors.
 - **State Persistence & Snapshots**: Preserves state across hibernation cycles with local snapshot tracking.
 - **CLI & Web Dashboard**: Developer CLI and a live browser UI (`:8082/dashboard`).
 
----
 
-## Architecture Overview
+## Overview
 
 ```
                       ┌──────────────────┐
@@ -36,8 +34,6 @@ Miniate replicates Substrate's entire control plane API surface (`ateapipb.Contr
                  │  • Embedded Dashboard (:8082) │
                  └───────────────────────────────┘
 ```
-
----
 
 ## Quickstart
 
@@ -128,7 +124,6 @@ Navigate to **`http://localhost:8082/dashboard`** in your browser to view:
 - Live log tailing
 - Interactive endpoint helper
 
----
 
 ## Command Reference
 
@@ -144,12 +139,3 @@ Navigate to **`http://localhost:8082/dashboard`** in your browser to view:
 | `miniate actor create/list/get/resume/suspend/pause/delete/logs` | Full actor lifecycle operations |
 | `miniate worker list/get/drain` | Inspect and drain physical worker slots |
 | `miniate tag create/list/get/delete` | Tag and manage actor snapshots |
-
----
-
-## Running Tests
-
-```bash
-make test
-```
-All unit tests and integration tests verify store state, runtime scheduling, gRPC handlers, and HTTP router auto-resume.
