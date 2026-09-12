@@ -19,34 +19,22 @@ Miniate replicates Substrate's entire control plane API surface (`ateapipb.Contr
 ## Architecture Overview
 
 ```
-                          ┌─────────────────────────────┐
-                          │           Client            │
-                          └──────┬───────────────┬──────┘
-                                 │               │
-                    HTTP Traffic │               │ gRPC / CLI Commands
-                                 ▼               ▼
-                      ┌──────────────────┐  ┌──────────────────┐
-                      │  Traffic Router  │  │  gRPC API Server │
-                      │  (:8000 / atenet)│  │      (:8080)     │
-                      └────────┬─────────┘  └────────┬─────────┘
-                               │                     │
-                    Auto-Resume│                     │ Control RPCs
-                               ▼                     ▼
-                      ┌────────────────────────────────────────┐
-                      │             Runtime Engine             │
-                      │  ┌──────────────────────────────────┐  │
-                      │  │ Worker Pool Slots (worker-0...7) │  │
-                      │  └──────────────────────────────────┘  │
-                      │  ┌──────────────────────────────────┐  │
-                      │  │ State / Snapshot / Log Store     │  │
-                      │  └──────────────────────────────────┘  │
-                      └──────────────────┬─────────────────────┘
-                                         │
-                                         ▼
-                              ┌────────────────────┐
-                              │ Embedded Dashboard │
-                              │      (:8082)       │
-                              └────────────────────┘
+                      ┌──────────────────┐
+                      │      Client      │
+                      └───┬──────────┬───┘
+             HTTP :8000   │          │  gRPC :8080
+                          ▼          ▼
+                 ┌─────────────┐ ┌───────────────┐
+                 │   Router    │ │ Control Plane │
+                 └──────┬──────┘ └───────┬───────┘
+                        │ Auto-Resume    │ RPCs
+                        ▼                ▼
+                 ┌───────────────────────────────┐
+                 │        Runtime Engine         │
+                 │  • Worker Slots (worker-0..7) │
+                 │  • State & Snapshot Store     │
+                 │  • Embedded Dashboard (:8082) │
+                 └───────────────────────────────┘
 ```
 
 ---
