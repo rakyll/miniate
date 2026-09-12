@@ -744,6 +744,13 @@ const dashboardHTML = `<!DOCTYPE html>
     </div>
 
     <div>
+      <div class="card" style="padding: 10px 14px;">
+        <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Actor</div>
+        <div id="selected-actor-display" style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); font-family: 'JetBrains Mono', monospace; margin-top: 2px;">
+          <span style="color: var(--text-muted); font-weight: 400; font-size: 0.85rem;">(None selected)</span>
+        </div>
+      </div>
+
       <div class="card">
         <div class="section-title">Endpoint</div>
         <div class="interactive-box">
@@ -907,6 +914,10 @@ const dashboardHTML = `<!DOCTYPE html>
           updateCurlSnippet('', '');
           document.getElementById('log-content').textContent = '(Select an actor to view logs)';
           document.getElementById('log-target-label').textContent = 'None';
+          const actorDisplay = document.getElementById('selected-actor-display');
+          if (actorDisplay) {
+            actorDisplay.innerHTML = '<span style="color: var(--text-muted); font-weight: 400; font-size: 0.85rem;">(None selected)</span>';
+          }
         }
         loadData();
       } catch (err) {
@@ -919,6 +930,12 @@ const dashboardHTML = `<!DOCTYPE html>
       selectedActor = actor;
       updateCurlSnippet(atespace, actor);
       document.getElementById('log-target-label').textContent = (atespace && actor) ? (atespace + '/' + actor) : '';
+      const actorDisplay = document.getElementById('selected-actor-display');
+      if (actorDisplay) {
+        actorDisplay.innerHTML = (atespace && actor)
+          ? ('<strong>' + atespace + '</strong>/<span style="color: var(--accent-cyan);">' + actor + '</span>')
+          : '<span style="color: var(--text-muted); font-weight: 400; font-size: 0.85rem;">(None selected)</span>';
+      }
       loadLogs(atespace, actor);
 
       // Highlight active row in real time
