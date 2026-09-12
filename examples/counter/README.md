@@ -1,53 +1,35 @@
-# Counter Actor Example
+# Counter Example
 
-This example demonstrates how to define, deploy, and interact with a stateful actor on **Miniate**.
-
-## Files
-
-- **`template.yaml`**: Standard Substrate `ActorTemplate` manifest configuring container image, readiness probe, resource limits, snapshotting policy (`FULL`), and sandbox class (`gvisor`).
-- **`main.go`**: Standalone Go HTTP actor maintaining state across invocations.
-- **`deploy.sh`**: Automated script to start Miniate, register the template, spin up actors, send requests with auto-resume, and demonstrate hibernation.
-- **`cleanup.sh`**: Script to tear down the example atespace and actors.
-
----
+A stateful counter actor demonstrating Miniate's template registration, actor lifecycle, and auto-resume via the ingress router.
 
 ## Quickstart
 
-### 1. Deploy the Actor
-Run the deployment script:
+### 1. Deploy
 ```bash
 ./examples/counter/deploy.sh
 ```
 
 ### 2. Send Traffic
-Send requests through the `atenet` smart router (port `8000`):
-
 ```bash
 curl -X POST \
   -H "ate-target-actor: demo/counter-1" \
   http://localhost:8000/
 ```
 
-### 3. Test Auto-Hibernation & Wake-Up
-Suspend the actor to release physical worker pool slots and capture a snapshot:
-
+### 3. Test Suspend & Auto-Resume
+Suspend the actor to release worker slots:
 ```bash
 miniate actor suspend counter-1 -a demo
 ```
 
-Next, send another request:
+Send another request (the router auto-resumes the actor and preserves its count):
 ```bash
 curl -X POST \
   -H "ate-target-actor: demo/counter-1" \
   http://localhost:8000/
 ```
-The router will automatically detect the suspended state, resume the actor in `<1ms`, and restore its counter without dropping traffic.
 
-### 4. Open Web Dashboard
-View live worker slot assignments and logs at:
-[http://localhost:8082/dashboard](http://localhost:8082/dashboard)
-
-### 5. Cleanup
+### 4. Cleanup
 ```bash
 ./examples/counter/cleanup.sh
 ```
