@@ -1,6 +1,6 @@
-# Counter Agent Example
+# Counter Actor Example
 
-This example demonstrates how to define, deploy, and interact with a stateful agent on **Miniate**.
+This example demonstrates how to define, deploy, and interact with a stateful actor on **Miniate**.
 
 ## Files
 
@@ -13,10 +13,10 @@ This example demonstrates how to define, deploy, and interact with a stateful ag
 
 ## Quickstart
 
-### 1. Deploy the Agent
+### 1. Deploy the Actor
 Run the deployment script:
 ```bash
-./examples/counter-agent/deploy.sh
+./examples/counter/deploy.sh
 ```
 
 ### 2. Send Traffic
@@ -49,5 +49,5 @@ View live worker slot assignments and logs at:
 
 ### 5. Cleanup
 ```bash
-./examples/counter-agent/cleanup.sh
+./examples/counter/cleanup.sh
 ```

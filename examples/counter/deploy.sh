@@ -11,7 +11,7 @@ if [ ! -f "${MINIATE_BIN}" ]; then
 fi
 
 echo "=========================================================="
-echo "Deploying Example Counter Agent to Miniate"
+echo "Deploying Example Counter Actor to Miniate"
 echo "=========================================================="
 
 # 1. Ensure Miniate cluster is running
@@ -31,14 +31,14 @@ ${MINIATE_BIN} atespace create demo 2>/dev/null || true
 
 # 3. Create the Actor Template from YAML
 echo ""
-echo "3. Registering actor template 'counter-agent' from template.yaml..."
+echo "3. Registering actor template 'counter' from template.yaml..."
 ${MINIATE_BIN} template create -f "${SCRIPT_DIR}/template.yaml" -a demo 2>/dev/null || true
 
 # 4. Create Actor instances (stateful actors)
 echo ""
 echo "4. Creating stateful actors..."
-${MINIATE_BIN} actor create counter-1 -a demo --template counter-agent 2>/dev/null || true
-${MINIATE_BIN} actor create counter-2 -a demo --template counter-agent 2>/dev/null || true
+${MINIATE_BIN} actor create counter-1 -a demo --template counter 2>/dev/null || true
+${MINIATE_BIN} actor create counter-2 -a demo --template counter 2>/dev/null || true
 
 echo ""
 echo "5. Current Actors in cluster:"

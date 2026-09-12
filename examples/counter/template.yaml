@@ -1,6 +1,6 @@
 metadata:
   atespace: demo
-  name: counter-agent
+  name: counter
 workerSelector:
   matchLabels:
     workload: counter

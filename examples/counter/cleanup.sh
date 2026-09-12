@@ -13,7 +13,7 @@ echo "Cleaning up example counter agent resources..."
 
 ${MINIATE_BIN} actor delete counter-1 -a demo 2>/dev/null || true
 ${MINIATE_BIN} actor delete counter-2 -a demo 2>/dev/null || true
-${MINIATE_BIN} template delete counter-agent -a demo 2>/dev/null || true
+${MINIATE_BIN} template delete counter -a demo 2>/dev/null || true
 ${MINIATE_BIN} atespace delete demo 2>/dev/null || true
 
 echo "Example resources cleaned up successfully."
