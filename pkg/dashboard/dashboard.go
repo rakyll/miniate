@@ -767,10 +767,7 @@ const dashboardHTML = `<!DOCTYPE html>
       </div>
 
       <div class="card">
-        <div class="section-title" style="justify-content: space-between;">
-          <span>Actor Logs</span>
-          <span id="log-target-label" style="font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;"></span>
-        </div>
+        <div class="section-title">Actor Logs</div>
         <div class="log-box" id="log-content">Select an actor to view logs...</div>
       </div>
     </div>
@@ -913,7 +910,6 @@ const dashboardHTML = `<!DOCTYPE html>
           selectedActor = null;
           updateCurlSnippet('', '');
           document.getElementById('log-content').textContent = '(Select an actor to view logs)';
-          document.getElementById('log-target-label').textContent = 'None';
           const actorDisplay = document.getElementById('selected-actor-display');
           if (actorDisplay) {
             actorDisplay.innerHTML = '<span style="color: var(--text-muted); font-weight: 400; font-size: 0.85rem;">(None selected)</span>';
@@ -929,7 +925,6 @@ const dashboardHTML = `<!DOCTYPE html>
       selectedAtespace = atespace;
       selectedActor = actor;
       updateCurlSnippet(atespace, actor);
-      document.getElementById('log-target-label').textContent = (atespace && actor) ? (atespace + '/' + actor) : '';
       const actorDisplay = document.getElementById('selected-actor-display');
       if (actorDisplay) {
         actorDisplay.innerHTML = (atespace && actor)
