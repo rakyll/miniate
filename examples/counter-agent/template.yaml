@@ -1,0 +1,25 @@
+metadata:
+  atespace: demo
+  name: counter-agent
+workerSelector:
+  matchLabels:
+    workload: counter
+containers:
+  - name: counter
+    image: ghcr.io/agent-substrate/counter:latest
+    readyz:
+      httpGet:
+        path: /readyz
+        port: 8080
+resources:
+  limits:
+    - name: cpu
+      quantity: "1"
+    - name: memory
+      quantity: 512Mi
+snapshotsConfig:
+  onPause: SNAPSHOT_CONTENT_SCOPE_FULL
+  onCommit: SNAPSHOT_CONTENT_SCOPE_FULL
+sandboxConfig:
+  sandboxClass: SANDBOX_CLASS_GVISOR
+  configName: gvisor-default

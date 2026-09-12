@@ -1,0 +1,11 @@
+# Binaries
+bin/
+
+# Test coverage
+coverage.out
+*.cov
+
+# Local state
+.miniate/
+*.pid
+*.log
